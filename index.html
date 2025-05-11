@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Юрипобеда! ♡(◕‿◕✿)</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('image000.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Comic Sans MS', cursive;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+        }
+        
+        .container {
+            background: rgba(255, 182, 193, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            border: 4px solid #ff69b4;
+            box-shadow: 0 0 30px rgba(255,105,180,0.5);
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff1493;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 0 white;
+            margin: 0 0 20px 0;
+        }
+
+        #timer {
+            font-size: 3em;
+            color: #ffffff;
+            background: #ff69b4;
+            padding: 15px 30px;
+            border-radius: 15px;
+            display: inline-block;
+            margin: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .message {
+            font-size: 1.2em;
+            color: #ffffff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Юрипобеда продолжается! (≧◡≦) ♡</h1>
+        <div id="timer">00:00:00:00</div>
+        <div class="message" id="randomMessage">Тян уже обняли! (⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)</div>
+    </div>
+
+    <script>
+        // Явно указываем время в UTC+3 (московское время)
+        const startDate = new Date('2025-05-11T09:10:00Z'); // 12:10 МСК (UTC+3)
+    
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+    
+            // Добавляем проверку на "обратное время"
+            if(diff < 0) {
+                document.getElementById('timer').innerHTML = "Они ещё только познакомятся! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧";
+                return;
+            }
+    
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+            document.getElementById('timer').innerHTML = 
+                `${days}<span style="font-size:0.6em">д</span> ` + 
+                `${hours}<span style="font-size:0.6em">ч</span> ` + 
+                `${minutes}<span style="font-size:0.6em">м</span> ` + 
+                `${seconds}<span style="font-size:0.6em">с</span>`;
+        }
+
+        // Случайные смешные сообщения
+        const messages = [
+            "Тян уже обняли! (⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)",
+            "Юри-энергия зашкаливает! ✧◝(⁰▿⁰)◜✧",
+            "Сахарок через край! (๑>ᴗ<๑)",
+            "Румянец активирован! (//ω//)",
+            "Объятия продолжаются"
+        ];
+
+        function updateMessage() {
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('randomMessage').innerHTML = randomMsg;
+        }
+
+        // Обновляем каждую секунду
+        setInterval(updateTimer, 1000);
+        setInterval(updateMessage, 5000);
+        updateTimer();
+        updateMessage();
+    </script>
+</body>
+</html>
